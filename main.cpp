@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include "src/QMC5883/QMC5883.hpp"
+#include "src/M10QGPS/M10QGPS.hpp"
 #include <csignal>
 
 int TimestartUpLoad = 0;
@@ -21,10 +22,18 @@ int main(int argc, char *argv[])
     int argvs;
     TimestartUpLoad = GetTimestamp();
 
-    while ((argvs = getopt(argc, argv, "s:S:g:m:")) != -1)
+    while ((argvs = getopt(argc, argv, "h:s:S:g:G:")) != -1)
     {
         switch (argvs)
         {
+        case 'h':
+        {
+            std::cout << "-g /dev/ttyS0 for GPS\n"
+                      << "-G /dev/ttyS0 for GPS Parsed Data\n"
+                      << "-S for QML5883 Compass Calibrate\n"
+                      << "-s for QML5883 Compass\n";
+        }
+        break;
         case 'S':
         {
             std::signal(SIGINT, [](int signal)
@@ -63,15 +72,13 @@ int main(int argc, char *argv[])
         break;
         case 's':
         {
-            std::signal(SIGINT, [](int signal)
-                        { signalIn = signal; });
             int rawx = 0;
             int rawy = 0;
             int rawz = 0;
             double angle = 0;
 
             QMC5883 mycompassTest(optarg, 0x0d);
-            mycompassTest.CompassApply(2103, -1244, 1534, -689, 1834, -503);
+            mycompassTest.CompassApply(1010, -2408, 1347, -2110, 1695, -1755);
             while (true)
             {
                 mycompassTest.CompassGetRaw(rawx, rawy, rawz);
@@ -83,22 +90,57 @@ int main(int argc, char *argv[])
                 usleep(50 * 1000);
             }
         }
-
+        break;
+        case 'G':
+        {
+            long int time;
+            long int timee;
+            std::string GPSData;
+            M10QGPS GPSUart(optarg);
+            GPSUart.GPSReOpen();
+            while (true)
+            {
+                if (GPSUart.GPSCheckDataAvaliable())
+                {
+                    time = GetTimestamp() - TimestartUpLoad;
+                    std::cout << "\nlast frame time get:" << time - timee << "\r\n";
+                    GPSUart.GPSRead(GPSData);
+                    std::cout << GPSData;
+                    timee = GetTimestamp() - TimestartUpLoad;
+                }
+                usleep(180000);
+            }
+        }
+        break;
         case 'g':
         {
             long int time;
             long int timee;
+            std::string GPSData;
+            GPSUartData mydata;
+            M10QGPS *GPSUart = new M10QGPS(optarg);
+            GPSUart->GPSReOpen();
             while (true)
             {
                 time = GetTimestamp() - TimestartUpLoad;
-
+                mydata = GPSUart->GPSParse();
+                std::cout << "satillites: " << mydata.satillitesCount << " ";
+                std::cout << "DataError: " << mydata.DataUnCorrect << " ";
+                std::cout << "lat: " << std::setprecision(9) << mydata.lat << " ";
+                std::cout << "lng: " << std::setprecision(10) << mydata.lng << " \n";
+                std::cout << "ALT: " << std::setprecision(4) << mydata.GPSAlititude << "M "
+                          << "HDOP " << std::setprecision(4) << mydata.HDOP << " "
+                          << "Quailty: " << mydata.GPSQuality << " "
+                          << "GeoidalSP: " << mydata.GPSGeoidalSP << "\n";
                 timee = GetTimestamp() - TimestartUpLoad;
+                std::cout << "last frame time : " << timee - time << "\n";
                 if ((timee - time) > 200000)
                     usleep(1500);
                 else
                     usleep(200000 - (timee - time));
             }
         }
+        break;
         }
     }
 }

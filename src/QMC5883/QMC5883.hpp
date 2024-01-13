@@ -97,10 +97,10 @@ public:
         {
             CalibratedData[0] = RawMAGCX > CalibratedData[0] ? RawMAGCX : CalibratedData[0];
             CalibratedData[1] = RawMAGCX < CalibratedData[1] ? RawMAGCX : CalibratedData[1];
-            CalibratedData[2] = RawMAGCY > CalibratedData[2] ? RawMAGCX : CalibratedData[2];
-            CalibratedData[3] = RawMAGCY < CalibratedData[3] ? RawMAGCX : CalibratedData[3];
-            CalibratedData[4] = RawMAGCZ > CalibratedData[4] ? RawMAGCX : CalibratedData[4];
-            CalibratedData[5] = RawMAGCZ < CalibratedData[6] ? RawMAGCX : CalibratedData[5];
+            CalibratedData[2] = RawMAGCY > CalibratedData[2] ? RawMAGCY : CalibratedData[2];
+            CalibratedData[3] = RawMAGCY < CalibratedData[3] ? RawMAGCY : CalibratedData[3];
+            CalibratedData[4] = RawMAGCZ > CalibratedData[4] ? RawMAGCZ : CalibratedData[4];
+            CalibratedData[5] = RawMAGCZ < CalibratedData[5] ? RawMAGCZ : CalibratedData[5];
         }
         else
         {
@@ -132,7 +132,7 @@ public:
         UnFixAngle = atan2((float)RawMAGCY, (float)-1 * RawMAGCX) * 180.f / PI;
         if (UnFixAngle < 0)
             UnFixAngle += 360;
-        else if (UnFixAngle > 0)
+        else if (UnFixAngle >= 360)
             UnFixAngle -= 360;
     }
 
