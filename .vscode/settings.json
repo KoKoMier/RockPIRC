@@ -49,5 +49,6 @@
         "typeinfo": "cpp",
         "cstdarg": "cpp",
         "csignal": "cpp"
-    }
+    },
+    "ros.distro": "noetic"
 }
