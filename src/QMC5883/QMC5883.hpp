@@ -6,8 +6,9 @@
 #include <unistd.h>
 #include <iomanip>
 #include <cmath>
-#define PI 3.1415
-
+#ifndef PI
+#define PI 3.14
+#endif
 #define QMC5883_REG_PRODUCTID 0x0D
 
 #define QMC5883_REG_HRESET 0x0b

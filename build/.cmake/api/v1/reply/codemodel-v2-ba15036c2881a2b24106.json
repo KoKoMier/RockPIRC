@@ -1,0 +1,110 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "src/M10QGPS",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src/M10QGPS",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "src/QMC5883",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src/QMC5883",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "RockPiRC",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "M10QGPS::@4a5f6aa968548ae83382",
+					"jsonFile" : "target-M10QGPS-Debug-2dec3fbb3d4ae13e0605.json",
+					"name" : "M10QGPS",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "QMC5883::@d4e4fe10572afdb8122e",
+					"jsonFile" : "target-QMC5883-Debug-c9359f7e0eea47f56cef.json",
+					"name" : "QMC5883",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "RockPiRC::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-RockPiRC-Debug-bf59417c73fc27b33a86.json",
+					"name" : "RockPiRC",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/cyh/FlightCode/RockPiRC/build",
+		"source" : "/home/cyh/FlightCode/RockPiRC"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

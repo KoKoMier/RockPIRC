@@ -1,0 +1,2 @@
+/usr/bin/ar qc libM10QGPS.a  CMakeFiles/M10QGPS.dir/M10QGPS.cpp.o
+/usr/bin/ranlib libM10QGPS.a
