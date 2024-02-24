@@ -5,6 +5,7 @@
 #include <sys/time.h>
 #include "src/QMC5883/QMC5883.hpp"
 #include "src/M10QGPS/M10QGPS.hpp"
+#include "src/CRSF/CRSFUart.hpp"
 #include <csignal>
 
 int TimestartUpLoad = 0;
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
     int argvs;
     TimestartUpLoad = GetTimestamp();
 
-    while ((argvs = getopt(argc, argv, "h:s:S:g:G:")) != -1)
+    while ((argvs = getopt(argc, argv, "h::s:S:g:G:a:")) != -1)
     {
         switch (argvs)
         {
@@ -31,9 +32,23 @@ int main(int argc, char *argv[])
             std::cout << "-g /dev/ttyS0 for GPS\n"
                       << "-G /dev/ttyS0 for GPS Parsed Data\n"
                       << "-S for QML5883 Compass Calibrate\n"
-                      << "-s for QML5883 Compass\n";
+                      << "-s for QML5883 Compass\n"
+                      << "-a /dev/ttyS0 for CRSF Uart\n";
         }
         break;
+        case 'a':
+        {
+            long int time;
+            long int timee;
+            CRSF test(optarg);
+            int channelData[50];
+            while (true)
+            {
+                time = GetTimestamp() - TimestartUpLoad;
+                int retValue = test.CRSFRead(channelData);
+                usleep(5000);
+            }
+        }
         case 'S':
         {
             std::signal(SIGINT, [](int signal)
