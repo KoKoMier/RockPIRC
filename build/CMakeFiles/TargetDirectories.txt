@@ -1,0 +1,12 @@
+/home/user/build-cyh/RockPiRC/build/CMakeFiles/rebuild_cache.dir
+/home/user/build-cyh/RockPiRC/build/CMakeFiles/edit_cache.dir
+/home/user/build-cyh/RockPiRC/build/CMakeFiles/RockPiRC.dir
+/home/user/build-cyh/RockPiRC/build/src/M10QGPS/CMakeFiles/rebuild_cache.dir
+/home/user/build-cyh/RockPiRC/build/src/M10QGPS/CMakeFiles/edit_cache.dir
+/home/user/build-cyh/RockPiRC/build/src/M10QGPS/CMakeFiles/M10QGPS.dir
+/home/user/build-cyh/RockPiRC/build/src/QMC5883/CMakeFiles/rebuild_cache.dir
+/home/user/build-cyh/RockPiRC/build/src/QMC5883/CMakeFiles/edit_cache.dir
+/home/user/build-cyh/RockPiRC/build/src/QMC5883/CMakeFiles/QMC5883.dir
+/home/user/build-cyh/RockPiRC/build/src/CRSF/CMakeFiles/rebuild_cache.dir
+/home/user/build-cyh/RockPiRC/build/src/CRSF/CMakeFiles/edit_cache.dir
+/home/user/build-cyh/RockPiRC/build/src/CRSF/CMakeFiles/CRSF.dir

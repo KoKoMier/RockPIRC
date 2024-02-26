@@ -69,9 +69,6 @@ public:
         int err = select(CRSFUart_fd + 1, &fd_Maker, NULL, NULL, &timecl);
         //
         InputBuffer = read(CRSFUart_fd, dataBuffer, CRSF_MAX_READ_SIZE - 2);
-        std::cout << "InputBuffer: " << InputBuffer
-                  << "\r\n";
-
         if (InputBuffer > 3)
         {
             ret = CRSFParser(dataBuffer, InputBuffer, channelsData);
@@ -84,12 +81,35 @@ public:
         if (hdr->frame.deviceAddress == crsfProtocol::CRSF_ADDRESS_FLIGHT_CONTROLLER)
         {
             uint8_t crc = gencrc((uint8_t *)(hdr->frame.payload), hdr->frame.frameLength - 2, hdr->frame.type);
-            std::cout << "type: " << hdr->frame.type << "\r\n";
             if (crc == hdr->frame.payload[hdr->frame.frameLength - 2])
             {
+                switch (hdr->frame.type)
+                {
+                case crsfProtocol::CRSF_FRAMETYPE_GPS:
+                    // packetGps(hdr);
+                    return crsfProtocol::CRSF_FRAMETYPE_GPS;
+                case crsfProtocol::CRSF_FRAMETYPE_RC_CHANNELS_PACKED:
+                    packetChannelsPacked(hdr, channelsOut);
+                    return crsfProtocol::CRSF_FRAMETYPE_RC_CHANNELS_PACKED;
+                case crsfProtocol::CRSF_FRAMETYPE_LINK_STATISTICS:
+                    // packetLinkStatistics(hdr);
+                    return crsfProtocol::CRSF_FRAMETYPE_LINK_STATISTICS;
+                }
             }
         }
+        return -1;
     }
+    
+    inline uint16_t rcToUs(uint16_t rc)
+    {
+        return (uint16_t)((rc * 0.62477120195241F) + 881);
+    };
+
+    inline ~CRSF()
+    {
+        close(CRSFUart_fd);
+        delete dataBuffer;
+    };
 
 private:
     fd_set fd_Maker;
@@ -97,6 +117,28 @@ private:
     int CRSFUart_fd;
     int lose_frameCount;
     int InputBuffer;
+
+    void packetChannelsPacked(const crsfProtocol::crsfFrame_t *p, int _channels[15])
+    {
+        crsfProtocol::crsfPayloadRcChannelsPacked_s *ch =
+            (crsfProtocol::crsfPayloadRcChannelsPacked_s *)&p->frame.payload;
+        _channels[0] = ch->chan0;
+        _channels[1] = ch->chan1;
+        _channels[2] = ch->chan2;
+        _channels[3] = ch->chan3;
+        _channels[4] = ch->chan4;
+        _channels[5] = ch->chan5;
+        _channels[6] = ch->chan6;
+        _channels[7] = ch->chan7;
+        _channels[8] = ch->chan8;
+        _channels[9] = ch->chan9;
+        _channels[10] = ch->chan10;
+        _channels[11] = ch->chan11;
+        _channels[12] = ch->chan12;
+        _channels[13] = ch->chan13;
+        _channels[14] = ch->chan14;
+        _channels[15] = ch->chan15;
+    }
 
     uint8_t gencrc(uint8_t *data, size_t len, uint8_t type)
     {

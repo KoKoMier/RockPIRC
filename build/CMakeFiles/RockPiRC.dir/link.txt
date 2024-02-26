@@ -1,0 +1,1 @@
+/home/user/build/openwrt-sdk-rockchip-armv8_gcc-11.2.0_musl.Linux-x86_64/staging_dir/toolchain-aarch64_generic_gcc-11.2.0_musl/bin/aarch64-openwrt-linux-g++  -g  -rdynamic CMakeFiles/RockPiRC.dir/main.cpp.o  -o RockPiRC 

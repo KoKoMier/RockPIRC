@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/user/build-cyh/RockPiRC/src/QMC5883/QMC5883.cpp
+QMC5883.hpp
+/home/user/build-cyh/RockPiRC/src/QMC5883/QMC5883.hpp
+
+/home/user/build-cyh/RockPiRC/src/QMC5883/QMC5883.hpp
+iostream
+-
+fcntl.h
+-
+sys/ioctl.h
+-
+linux/i2c-dev.h
+-
+unistd.h
+-
+iomanip
+-
+cmath
+-
+

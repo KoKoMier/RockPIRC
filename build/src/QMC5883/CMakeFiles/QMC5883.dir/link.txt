@@ -1,0 +1,2 @@
+/usr/bin/ar qc libQMC5883.a  CMakeFiles/QMC5883.dir/QMC5883.cpp.o
+/usr/bin/ranlib libQMC5883.a

@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/user/build-cyh/RockPiRC/src/CRSF/CRSFProtocol.hpp
+stdint.h
+-
+
+/home/user/build-cyh/RockPiRC/src/CRSF/CRSFUart.cpp
+CRSFUart.hpp
+/home/user/build-cyh/RockPiRC/src/CRSF/CRSFUart.hpp
+
+/home/user/build-cyh/RockPiRC/src/CRSF/CRSFUart.hpp
+CRSFProtocol.hpp
+/home/user/build-cyh/RockPiRC/src/CRSF/CRSFProtocol.hpp
+stdint.h
+-
+fcntl.h
+-
+unistd.h
+-
+stdexcept
+-
+asm/termbits.h
+-
+sys/ioctl.h
+-
+asm-generic/ioctls.h
+-
+sys/select.h
+-
+iostream
+-
+
