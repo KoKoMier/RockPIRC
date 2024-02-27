@@ -1,5 +1,4 @@
 #pragma once
-
 #include "CRSFProtocol.hpp"
 #include <stdint.h>
 #include <fcntl.h>
@@ -25,7 +24,7 @@ public:
     inline CRSF(const char *UartDevice, int bandrate = CRSF_DEFAULT_BANDRATE)
     {
         dataBuffer = new uint8_t[CRSF_MAX_READ_SIZE];
-        CRSFUart_fd = open("/dev/ttyS1", O_RDWR | O_CLOEXEC | O_NONBLOCK);
+        CRSFUart_fd = open(UartDevice, O_RDWR | O_CLOEXEC | O_NONBLOCK);
         if (CRSFUart_fd == -1)
             throw std::invalid_argument("[UART] CRSF Uable to open device:" + std::string(UartDevice));
         struct termios2 options;
@@ -99,7 +98,7 @@ public:
         }
         return -1;
     }
-    
+
     inline uint16_t rcToUs(uint16_t rc)
     {
         return (uint16_t)((rc * 0.62477120195241F) + 881);
@@ -144,5 +143,27 @@ private:
     {
         size_t i, j;
         uint8_t crc = 0x00;
+        // must check type at first, and skip
+        crc ^= type;
+        for (j = 0; j < 8; j++)
+        {
+            if ((crc & 0x80) != 0)
+                crc = (uint8_t)((crc << 1) ^ 0xd5);
+            else
+                crc <<= 1;
+        }
+        //
+        for (i = 0; i < len; i++)
+        {
+            crc ^= data[i];
+            for (j = 0; j < 8; j++)
+            {
+                if ((crc & 0x80) != 0)
+                    crc = (uint8_t)((crc << 1) ^ 0xd5);
+                else
+                    crc <<= 1;
+            }
+        }
+        return crc;
     }
 };

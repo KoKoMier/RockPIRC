@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
                       << "-G /dev/ttyS0 for GPS Parsed Data\n"
                       << "-S for QML5883 Compass Calibrate\n"
                       << "-s for QML5883 Compass\n"
-                      << "-a /dev/ttyS0 for CRSF Uart\n";
+                      << "-a /dev/ttyS2 for CRSF Uart\n";
         }
         break;
         case 'a':
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
                 {
                     for (size_t i = 0; i < 15; i++)
                     {
-                        std::cout << test.rcToUs(channelData[i]) << "";
+                        std::cout << test.rcToUs(channelData[i]) << " ";
                     }
                     std::cout << "\n";
                 }
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
                     std::cout << "error frame recived"
                               << "\n";
                 }
-                //
+                
                 timee = GetTimestamp() - TimestartUpLoad;
                 std::cout << "ret: " << retValue
                           << " last frame time : " << timee - time << " "
