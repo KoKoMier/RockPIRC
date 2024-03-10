@@ -3,10 +3,11 @@
 #include <iomanip>
 #include <unistd.h>
 #include <sys/time.h>
+#include <csignal>
 #include "src/QMC5883/QMC5883.hpp"
 #include "src/M10QGPS/M10QGPS.hpp"
 #include "src/CRSF/CRSFUart.hpp"
-#include <csignal>
+#include "src/MTF-02/MTF-02.hpp"
 
 int TimestartUpLoad = 0;
 int signalIn = 0;
@@ -23,7 +24,7 @@ int main(int argc, char *argv[])
     int argvs;
     TimestartUpLoad = GetTimestamp();
 
-    while ((argvs = getopt(argc, argv, "h::s:S:g:G:a:")) != -1)
+    while ((argvs = getopt(argc, argv, "h::s:S:g:G:a:t::")) != -1)
     {
         switch (argvs)
         {
@@ -34,6 +35,36 @@ int main(int argc, char *argv[])
                       << "-S for QML5883 Compass Calibrate\n"
                       << "-s for QML5883 Compass\n"
                       << "-a /dev/ttyS2 for CRSF Uart\n";
+        }
+        break;
+        case 't':
+        {
+            MTF02 *mtf02Test;
+            try
+            {
+                mtf02Test = new MTF02("/dev/i2c-7", 0x31);
+            }
+            catch (int error)
+            {
+                switch (error)
+                {
+                case -1:
+                    std::cout << "open I2C device faild\n";
+                    break;
+                case -2:
+                    std::cout << "Set I2C device prop faild\n";
+                    break;
+                default:
+                    std::cout << "Set I2C Command faild\n";
+                    break;
+                }
+            }
+            usleep(500);
+            while (true)
+            {
+                mtf02Test->MTF02Read();
+                usleep(5000);
+            }
         }
         break;
         case 'a':
@@ -59,7 +90,7 @@ int main(int argc, char *argv[])
                     std::cout << "error frame recived"
                               << "\n";
                 }
-                
+
                 timee = GetTimestamp() - TimestartUpLoad;
                 std::cout << "ret: " << retValue
                           << " last frame time : " << timee - time << " "
@@ -67,7 +98,7 @@ int main(int argc, char *argv[])
             }
         }
         break;
-        
+
         case 'S':
         {
             std::signal(SIGINT, [](int signal)

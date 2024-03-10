@@ -48,7 +48,8 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "cstdarg": "cpp",
-        "csignal": "cpp"
+        "csignal": "cpp",
+        "cstring": "cpp"
     },
     "ros.distro": "noetic"
 }
