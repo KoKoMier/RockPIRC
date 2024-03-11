@@ -34,7 +34,8 @@ int main(int argc, char *argv[])
                       << "-G /dev/ttyS1 for GPS Parsed Data\n"
                       << "-S for QML5883 Compass Calibrate\n"
                       << "-s for QML5883 Compass\n"
-                      << "-a /dev/ttyS2 for CRSF Uart\n";
+                      << "-a /dev/ttyS2 for CRSF Uart\n"
+                      << "-t for MTF-02\n";
         }
         break;
         case 't':

@@ -39,7 +39,7 @@ public:
             char input = 0x01;
             ssize_t bytesWritten = write(fd, &input, 1);
             read(fd, &D, 3);
-            int dinstance = (uint32_t)D[0] << 8 | (uint32_t)D[1];
+            dinstance = (uint32_t)D[0] << 8 | (uint32_t)D[1];
             int qiangdu = D[2];
             // std::cout << "dinstance " << dinstance << "\r\n";
             // std::cout << "qiangdu " << (unsigned int)D[2] << "\r\n";
@@ -49,16 +49,25 @@ public:
             char input = 0x06;
             ssize_t bytesWritten = write(fd, &input, 1);
             read(fd, &D, 5);
-            int x = (uint32_t)D[0] << 8 | (uint32_t)D[1];
-            int y = (uint32_t)D[2] << 8 | (uint32_t)D[3];
+            float x = (uint32_t)D[0] << 8 | (uint32_t)D[1];
+            float y = (uint32_t)D[2] << 8 | (uint32_t)D[3];
             int qiangdu = D[4];
-            // std::cout << "x " << x << "\r\n";
-            // std::cout << "y " << y << "\r\n";
-            // std::cout << "qiangdu " << (unsigned int)D[4] << "\r\n";
+            if (x>32768) x -= 65535;
+            if(y>32768) y-=65535; 
+            float x_v = x * dinstance/1000;
+            float y_v = y * dinstance/1000;
+            x_d += x_v/200;
+            y_d += y_v/200;
+            std::cout << "x " << x_d << "\r\n";
+            std::cout << "y " << y_d << "\r\n";
+            std::cout << "qiangdu " << (unsigned int)D[4] << "\r\n";
         }
     }
 
 private:
     uint8_t ID;
     int fd;
+    int dinstance;
+    float x_d = 0;
+    float y_d = 0;
 };
