@@ -30,8 +30,8 @@ int main(int argc, char *argv[])
         {
         case 'h':
         {
-            std::cout << "-g /dev/ttyS0 for GPS\n"
-                      << "-G /dev/ttyS0 for GPS Parsed Data\n"
+            std::cout << "-g /dev/ttyS1 for GPS\n"
+                      << "-G /dev/ttyS1 for GPS Parsed Data\n"
                       << "-S for QML5883 Compass Calibrate\n"
                       << "-s for QML5883 Compass\n"
                       << "-a /dev/ttyS2 for CRSF Uart\n";
