@@ -65,7 +65,13 @@ int main(int argc, char *argv[])
             while (true)
             {
                 Data = mtf02Test->MTF02DataGet();
-
+                std::cout << " Speed_X " << Data.Speed_X << "\r\n";
+                std::cout << " Speed_Y " << Data.Speed_Y << "\r\n";
+                std::cout << " Speed_X " << Data.Pos_X << "\r\n";
+                std::cout << " Speed_Y " << Data.Pos_Y << "\r\n";
+                std::cout << " Distance " << Data.Distance << "\r\n";
+                std::cout << "\033[5A";
+                std::cout << "\033[K";
                 usleep(5000);
             }
         }

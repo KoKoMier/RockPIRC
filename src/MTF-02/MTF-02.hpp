@@ -49,13 +49,6 @@ public:
         MTF02DataRead();
         Data.Pos_X += Data.Speed_X / 200;
         Data.Pos_Y += Data.Speed_Y / 200;
-        std::cout << " Speed_X " << Data.Speed_X << "\r\n";
-        std::cout << " Speed_Y " << Data.Speed_Y << "\r\n";
-        std::cout << " Speed_X " << Data.Pos_X << "\r\n";
-        std::cout << " Speed_Y " << Data.Pos_Y << "\r\n";
-        std::cout << " Distance " << Data.Distance << "\r\n";
-        std::cout << "\033[5A";
-        std::cout << "\033[K";
         return Data;
     }
 
