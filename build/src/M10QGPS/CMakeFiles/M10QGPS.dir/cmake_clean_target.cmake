@@ -1,0 +1,3 @@
+file(REMOVE_RECURSE
+  "libM10QGPS.a"
+)

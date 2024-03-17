@@ -60,10 +60,12 @@ int main(int argc, char *argv[])
                     break;
                 }
             }
+            MTF02::MTF02Data Data;
             usleep(500);
             while (true)
             {
-                mtf02Test->MTF02Read();
+                Data = mtf02Test->MTF02DataGet();
+
                 usleep(5000);
             }
         }
