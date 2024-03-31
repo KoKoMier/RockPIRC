@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/cyh/FlightCode/RockPiRC/src/MTF-02/MTF-02.cpp
+MTF-02.hpp
+/home/cyh/FlightCode/RockPiRC/src/MTF-02/MTF-02.hpp
+
+/home/cyh/FlightCode/RockPiRC/src/MTF-02/MTF-02.hpp
+iostream
+-
+fcntl.h
+-
+sys/ioctl.h
+-
+linux/i2c-dev.h
+-
+unistd.h
+-
+iomanip
+-
+cmath
+-
+

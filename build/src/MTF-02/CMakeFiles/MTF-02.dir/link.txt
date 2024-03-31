@@ -1,0 +1,2 @@
+/usr/bin/ar qc libMTF-02.a  CMakeFiles/MTF-02.dir/MTF-02.cpp.o
+/usr/bin/ranlib libMTF-02.a

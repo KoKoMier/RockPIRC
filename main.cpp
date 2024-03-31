@@ -198,6 +198,8 @@ int main(int argc, char *argv[])
             {
                 time = GetTimestamp() - TimestartUpLoad;
                 mydata = GPSUart->GPSParse();
+                std::cout << "\033[3A";
+                std::cout << "\033[K";
                 std::cout << "satillites: " << mydata.satillitesCount << " ";
                 std::cout << "DataError: " << mydata.DataUnCorrect << " ";
                 std::cout << "lat: " << std::setprecision(9) << mydata.lat << " ";

@@ -205,24 +205,26 @@ public:
                 GGADataCrash++;
                 if (GGADataCrash > 1)
                     break;
+
                 dataParese(GPSData[Count], GPSDataChecker, '*', 5);
                 if (GPSDataChecker[1] == std::string(""))
                 {
                     myData.DataUnCorrect = true;
                 }
+
                 dataParese(GPSData[Count], GPSDataSub, ',', 40);
 
                 std::string GPSDataTmpLat = std::to_string(std::atof(GPSDataSub[GGAData_LAT].c_str()) / 100.0);
                 dataParese(GPSDataTmpLat, GPSTmpData, '.', 2);
-                myData.lat = std::atof(GPSTmpData[0].c_str()) * 10000;
-                myData.lat += std::atof(GPSTmpData[1].c_str()) / 60;
-                myData.lat = (int)(myData.lat);
+                myData.lat = std::atof(GPSTmpData[0].c_str()) * 10000.0;
+                myData.lat += std::atof(GPSTmpData[1].c_str()) / 60.0;
+                myData.lat = (int)(myData.lat * 100);
 
                 std::string GPSDataTmpLng = std::to_string(std::atof(GPSDataSub[GGAData_LNG].c_str()) / 100.0);
                 dataParese(GPSDataTmpLng, GPSTmpData, '.', 2);
                 myData.lng = std::atof(GPSTmpData[0].c_str()) * 10000.0;
                 myData.lng += std::atof(GPSTmpData[1].c_str()) / 60.0;
-                myData.lng = (int)(myData.lng);
+                myData.lng = (int)(myData.lng * 100);
 
                 if (strncmp(GPSDataSub[GGAData_North].c_str(), "N", 1) == 0)
                     myData.lat_North_Mode = true;
@@ -277,7 +279,7 @@ private:
         std::string token;
         while ((pos = data.find(split)) != std::string::npos)
         {
-            if (Count >= MaxSize)
+            if (Count > MaxSize)
                 break;
             token = data.substr(0, pos);
             databuff[Count] = token;
@@ -286,6 +288,7 @@ private:
         }
         databuff[Count] = data;
         databuff[Count + 1] = ";";
+
         return Count;
     }
 };
